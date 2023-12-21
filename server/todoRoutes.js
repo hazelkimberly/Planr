@@ -4,7 +4,7 @@ import {
   addTodo,
   editTodo,
   deleteTodo
-} from './todoControllers.jsx';
+} from './todoControllers.js';
 
 const todoRoutes = express.router();
 
