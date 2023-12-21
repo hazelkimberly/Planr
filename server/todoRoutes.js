@@ -1,12 +1,18 @@
-// Import express
-// Create a new router object
+import express from 'express';
+import {
+  getTodos,
+  addTodo,
+  editTodo,
+  deleteTodo
+} from './todoControllers.jsx';
 
-// Get list of todos
+const todoRoutes = express.router();
 
-// Add a todo
+todoRoutes.get('/', getTodos);
 
-// Edit a todo
+todoRoutes.post('/', addTodo);
 
-// Delete a todo
+todoRoutes.patch('/:id', editTodo);
 
-// Export todoRoutes
+todoRoutes.delete('/:id', deleteTodo);
+
