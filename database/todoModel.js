@@ -3,9 +3,13 @@ import mongoose from 'mongoose';
 const todoSchema = new mongoose.Schema({
   description: { type: String, required: true },
   completed: { type: Boolean, default: false },
-  date: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' }
 });
 
-const Todo = mongoose.model('Todo', todoSchema);
+const categorySchema = new mongoose.Schema({
+  name: { type: String, required: true },
+});
 
-export default Todo;
+export const Todo = mongoose.model('Todo', todoSchema);
+export const Category = mongoose.model('Category', categorySchema);

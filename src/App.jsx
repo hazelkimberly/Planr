@@ -1,34 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState, useEffect } from 'react'
+import axios from 'axios';
+import CategoryList from './components/CategoryList.jsx';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [categoryList, setCategoryList] = useState([]);
+  const [category, setCategory] = useState('');
+
+  const fetchCategories = () => {
+    axios.get('http://localhost:3000/todo/category')
+      .then((response) => {
+        setCategoryList(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const handleCategorySubmit = () => {
+    axios.post('http://localhost:3000/todo/category', {
+      name: category
+    })
+      .then((response) => {
+        console.log(response);
+        setCategory('');
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .then(() => {
+        fetchCategories();
+      });
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='main-container'>
+      <CategoryList categoryList={categoryList} fetchCategories={fetchCategories}/>
+      <div className='add-category'>
+        <input
+          type='text'
+          placeholder='Create New List'
+          value={category}
+          onChange={(e) => {setCategory(e.target.value)}}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleCategorySubmit();
+            }
+          }}/>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
