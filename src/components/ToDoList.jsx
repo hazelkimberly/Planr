@@ -9,7 +9,7 @@ const ToDoList = ({ todoList, fetchTodos }) => {
 
   const handleClear = () => {
     const deletePromises = todoList.filter((todo) => todo.completed).map((todo) => {
-      axios.delete(`http://localhost:3000/todo/${todo._id}`)
+      return axios.delete(`http://localhost:3000/todo/${todo._id}`)
     });
 
     Promise.all(deletePromises)
