@@ -38,19 +38,24 @@ function App() {
   }, []);
 
   return (
-    <div className='main-container'>
-      <CategoryList categoryList={categoryList} fetchCategories={fetchCategories}/>
-      <div className='add-category'>
-        <input
-          type='text'
-          placeholder='Create New List'
-          value={category}
-          onChange={(e) => {setCategory(e.target.value)}}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleCategorySubmit();
-            }
-          }}/>
+    <div className='relative'>
+      <img src='/bg-desktop-dark.jpg' alt='Background Image' className='w-full h-80 object-cover'/>
+      <div className='absolute top-32 left-0 flex justify-start space-x-32 overflow-x-auto max-w-full'>
+        <CategoryList categoryList={categoryList} fetchCategories={fetchCategories}/>
+        <div className='flex flex-col gap-y-8 flex-shrink-0'>
+          <span className='uppercase tracking-widest text-4xl font-bold'>Add New List</span>
+          <input
+            className='bg-slate-800 rounded h-14 px-3 josefin pt-1'
+            type='text'
+            placeholder='Name of new list...'
+            value={category}
+            onChange={(e) => {setCategory(e.target.value)}}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleCategorySubmit();
+              }
+            }}/>
+        </div>
       </div>
     </div>
   )

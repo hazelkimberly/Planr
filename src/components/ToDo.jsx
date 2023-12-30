@@ -9,7 +9,6 @@ const ToDo = ({ categoryId }) => {
   const fetchTodos = () => {
     axios.get(`http://localhost:3000/todo/?category=${categoryId}`)
       .then((response) => {
-        console.log(response)
         setTodoList(response.data);
       })
       .catch((err) => {
@@ -39,10 +38,11 @@ const ToDo = ({ categoryId }) => {
   }, []);
 
   return (
-    <section>
-      <div className='add-todo-container'>
+    <section className='flex flex-col gap-y-5 josefin'>
+      <div className='flex border-slate-800 rounded gap-x-3 h-14 px-3 bg-slate-800'>
         <input type='checkbox' disabled/>
         <input
+          className='w-full bg-slate-800 rounded-r pt-1'
           type='text'
           placeholder='Create a new todo...'
           value={todo}
